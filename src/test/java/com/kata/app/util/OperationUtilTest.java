@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class OperationUtilTest {
 
     @Test
-    public void testMakeDeposit() {
+    public void Should_Make_Deposit_When_Amounts_Are_Populated() {
         Account account = new Account();
         Amount firstAmount = new Amount();
         Amount secondAmount = new Amount();
@@ -41,7 +41,7 @@ public class OperationUtilTest {
     }
 
     @Test
-    public void testMakeWithdrawl() {
+    public void Should_Make_Withdrawl_When_Amounts_Are_Populated() {
         Account account = new Account();
         Amount firstAmount = new Amount();
         Amount secondAmount = new Amount();
@@ -69,7 +69,7 @@ public class OperationUtilTest {
     }
 
     @Test(expected = NumberFormatException.class)
-    public void testWithdrawlAmountCanBeBiggerThanBalance() {
+    public void Should_Throw_Exception_When_Amount_is_Bigger_Than_Balance() {
         Amount amount = new Amount();
         amount.setValue(BigDecimal.valueOf(1000));
         OperationUtil.makeWithdrawl(amount);
@@ -77,7 +77,7 @@ public class OperationUtilTest {
     }
 
     @Test(expected = NumberFormatException.class)
-    public void testIfAmountIsNegativeWhenDeposit() {
+    public void Should_Throw_Exception_When_Amount_is_Negative() {
         Amount amount = new Amount();
         amount.setValue(BigDecimal.valueOf(-1000));
         OperationUtil.makeDeposit(amount);
