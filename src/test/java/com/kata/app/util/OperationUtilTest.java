@@ -4,19 +4,15 @@ import com.kata.app.model.Account;
 import com.kata.app.model.Amount;
 import com.kata.app.model.Transaction;
 import com.kata.app.model.TransactionType;
-import junit.framework.TestCase;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class OperationUtilTest extends TestCase {
+import static org.junit.Assert.assertEquals;
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+public class OperationUtilTest {
 
     @Test
     public void testMakeDeposit() {
@@ -72,19 +68,16 @@ public class OperationUtilTest extends TestCase {
         assertEquals(expectedResult, Result);
     }
 
-    @Test
+    @Test(expected = NumberFormatException.class)
     public void testWithdrawlAmountCanBeBiggerThanBalance() {
-        expectedException.expect(NumberFormatException.class);
-        expectedException.expectMessage("Amount cannot be greater than balance");
         Amount amount = new Amount();
         amount.setValue(BigDecimal.valueOf(1000));
         OperationUtil.makeWithdrawl(amount);
+
     }
 
-    @Test
+    @Test(expected = NumberFormatException.class)
     public void testIfAmountIsNegativeWhenDeposit() {
-        expectedException.expect(NumberFormatException.class);
-        expectedException.expectMessage("Amount cannot be negative");
         Amount amount = new Amount();
         amount.setValue(BigDecimal.valueOf(-1000));
         OperationUtil.makeDeposit(amount);
